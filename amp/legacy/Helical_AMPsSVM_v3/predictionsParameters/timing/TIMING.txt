@@ -1,0 +1,37 @@
+# time trial over 572 AMP + decoy sequences in the database
+
+INPUTS
+
+cd ../7_predict/
+
+# copy in sequences to test
+seqFile='seqs.txt'
+nSeq=572
+
+# setup
+descFile='descriptors.csv'
+
+cp ../4_filter_L1SVC/Z_score_mean_std__intersect_noflip.csv ./
+ZFile='Z_score_mean_std__intersect_noflip.csv'
+
+cp ../6a_linearSVC/intersect_noflip/svc.pkl* ./
+svcPkl='svc.pkl'
+
+
+# timing
+
+time python ../2_descriptors/descripGen_12.py "../2_descriptors/aaindex/" $seqFile 1 $nSeq
+time python predictSVC.py $descFile $ZFile $svcPkl
+
+---
+
+OUTPUTS
+
+real	1m16.851s
+user	1m14.868s
+sys	0m0.684s
+
+real	0m3.761s
+user	0m0.527s
+sys	0m0.269s
+
